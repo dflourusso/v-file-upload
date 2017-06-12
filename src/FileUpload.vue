@@ -130,6 +130,7 @@ export default {
 
   .thumb-preview
     display flex
+    flex-flow row wrap
     .thumb-preview-item
       border-radius 5px
       margin 5px
