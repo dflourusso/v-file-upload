@@ -1,0 +1,41 @@
+{
+  "name": "v-file-upload",
+  "version": "1.0.0",
+  "description": "File input component for Vue.js",
+  "author": "Daniel Fernando Lourusso <daniel@dflourusso.com.br>",
+  "main": "dist/v-file-upload.js",
+  "license": {
+    "type": "MIT",
+    "url": "http://www.opensource.org/licenses/mit-license.php"
+  },
+  "scripts": {
+    "dist": "vue build ./src/v-file-upload.js --config ./build.config.js --dist ./dist/ --prod --lib",
+    "dist:demo": "vue build ./demo/index.js --config ./demo/build.config.js --dist ./docs/ --prod",
+    "build": "npm run dist -- --disable-compress",
+    "start": "npm run dev",
+    "dev": "vue build ./demo/index.js --config ./demo/build.config.js",
+    "demo:open": "open 'http://localhost:3000/'; serve ./demo/"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [
+    "vue",
+    "upload",
+    "file-upload",
+    "vue-upload",
+    "vue-file-upload",
+    "upload-vue",
+    "file-upload-vue",
+    "v-upload",
+    "v-file-upload"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dflourusso/v-file-upload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dflourusso/v-file-upload/issues"
+  },
+  "homepage": "https://github.com/dflourusso/v-file-upload#readme"
+}

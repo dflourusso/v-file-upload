@@ -1,0 +1,26 @@
+<template lang="pug">
+div(style="text-align: center;")
+  div.input-group
+    file-upload(url='https://posttestserver.com/post.php?dump', :multiple='false', :thumb-url='thumbUrl')
+</template>
+
+<script>
+import Vue from 'vue'
+
+import FileUpload from '../src/FileUpload.vue'
+Vue.component('file-upload', FileUpload)
+
+export default {
+  name: 'demo',
+  methods: {
+    thumbUrl (file) {
+      return 'http://vuejs.org/images/logo.png'
+    }
+  }
+}
+</script>
+
+<style src="./style.css"></style>
+<style lang="stylus">
+
+</style>
