@@ -79,19 +79,20 @@ export default {
 
 #### Properties
 
-| Name                    | Type      | Required | Default         | Info                                                                         |
-|---                      |---        |---       |---              |---                                                                           |
-| **url**                 | String    | True     |                 | Url to POST the files                                                        |
-| **thumb-url**           | Function  | True     |                 | Method that should returns the thumb url for the uploaded file               |
-| **multiple**            | Boolean   | False    | true            | Permit select multiple files if true    Like @input, but only when has value |
-| **headers**             | Object    | False    | {}              | Headers for the request. You can pass auth tokens for example                |
-| **btn-label**           | String    | False    | Select a file   | Label for the button                                                         |
-| **btn-uploading-label** | String    | False    | Uploading files | Label for the button when the upload is in progress                          |
+| Name                    | Type      | Required | Default         | Info                                                           |
+|---                      |---        |---       |---              |---                                                             |
+| **url**                 | String    | True     |                 | Url to POST the files                                          |
+| **thumb-url**           | Function  | True     |                 | Method that should returns the thumb url for the uploaded file |
+| **multiple**            | Boolean   | False    | true            | Permit select multiple files if true                           |
+| **accept**              | String    | False    | .png,.jpg       | File input accept filter                                       |
+| **headers**             | Object    | False    | {}              | Headers for the request. You can pass auth tokens for example  |
+| **btn-label**           | String    | False    | Select a file   | Label for the button                                           |
+| **btn-uploading-label** | String    | False    | Uploading files | Label for the button when the upload is in progress            |
 
 #### Events
 
 | Name                    | Params                            | Info                                                                                                                               |
-|---                      |---                                |---                                                                             |
+|---                      |---                                |---                                                                                                                                 |
 | **success**             | *event*: XMLHttpRequest event     | Triggered after POST success                                                                                                       |
 | **error**               | *event*: XMLHttpRequest event     | Triggered after POST error                                                                                                         |
 | **change**              | *files*: Array of uploaded files  | Triggered after add or remove a file                                                                                               |

@@ -5,7 +5,7 @@
       label.red(@click='removeAnexo(anexo)') &times;
       img(:src='thumbUrl(anexo)')
   .input-wrapper(:style='inputWrapperStyle')
-    input#file-upload-input(type='file', name='file', @change='onChangeInputFile', accept=".mp4,.pdf,.png,.jpg", :multiple='multiple', :disabled='uploading')
+    input#file-upload-input(type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='multiple', :disabled='uploading')
     label.file-upload-label(for='file-upload-input')
       span.file-upload-icon.fu-spin(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
@@ -18,6 +18,7 @@ export default {
   props: {
     url: { type: String, required: true},
     thumbUrl: { type: Function, required: true },
+    accept: { type: String, default: '.png,.jpg'},
     multiple: { type: Boolean, default: true },
     headers: { type: Object, default: () => {return {}} },
     btnLabel: { type: String, default: 'Select a file'},
