@@ -48,7 +48,7 @@ export default {
     onChangeInputFile (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
-      this.progress = 1
+      this.progress = .1
       FileUpload(this.url, files, this.headers, this.onProgress, this.onReadyStateChange).then((e) => {
         if (Array.isArray(e.target.response)) {
           this.anexos = this.anexos.concat(e.target.response)
@@ -63,8 +63,11 @@ export default {
     },
 
     onProgress (e) {
-      this.progress = parseInt(e.loaded * 100 / e.total)
-      this.$emit('progress', this.progress)
+      let p = parseInt(e.loaded * 100 / e.total)
+      if (p > this.progress) {
+        this.progress = p
+        this.$emit('progress', this.progress)
+      }
     },
 
     onReadyStateChange (e) {
