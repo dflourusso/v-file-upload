@@ -48,6 +48,7 @@ export default {
     onChangeInputFile (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
+      this.progress = 1
       FileUpload(this.url, files, this.headers, this.onProgress, this.onReadyStateChange).then((e) => {
         if (Array.isArray(e.target.response)) {
           this.anexos = this.anexos.concat(e.target.response)
