@@ -97,7 +97,7 @@ export default {
 | **error**               | *event*: XMLHttpRequest event     | Triggered after POST error                                                                                                         |
 | **change**              | *files*: Array of uploaded files  | Triggered after add or remove a file                                                                                               |
 | **progress**            | *progress*: Progress percentage   | Triggered while the upload is in progress indicating the upload percentage                                                         |
-| **ready-state-change**  | *event*: XMLHttpRequest event     | Triggered after each XMLHttpRequest state change [See](https://developer.mozilla.org/pt-BR/docs/Web/API/XMLHttpRequest/readyState) |
+| **ready-state-change**  | *event*: XMLHttpRequest event     | Triggered after each XMLHttpRequest state change [See](https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/readyState) |
 
 
 ### As service
