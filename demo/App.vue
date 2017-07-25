@@ -1,7 +1,7 @@
 <template lang="pug">
 div(style="text-align: center;")
   div.input-group
-    file-upload(url='https://posttestserver.com/post.php?dump', :multiple='false', :thumb-url='thumbUrl')
+    file-upload(url='https://posttestserver.com/post.php?dump', :multiple='true', :thumb-url='thumbUrl')
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
   name: 'demo',
   methods: {
     thumbUrl (file) {
-      return 'http://vuejs.org/images/logo.png'
+      return file.status == 'success' ? 'http://vuejs.org/images/logo.png' : ''
     }
   }
 }
