@@ -8,12 +8,12 @@
       img(:src='thumbUrl(anexo)')
   .input-wrapper(v-if="status == 'error'", style="background-color: #d9534f;")
     label.file-upload-label(@click="upload(anexos)")
-      span.file-upload-icon.fa-spin &times;
+      span.file-upload-icon &times;
       div {{ btnErrorLabel }}
   .input-wrapper(:style='inputWrapperStyle', v-else)
     input#file-upload-input(type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='multiple', :disabled='uploading')
     label.file-upload-label(for='file-upload-input')
-      span.file-upload-icon.fu-spin(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
+      span.file-upload-icon(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
     div.file-upload-progress(:style='progressStyle')
 </template>
