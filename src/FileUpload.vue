@@ -1,6 +1,6 @@
 <template lang="pug">
 .file-upload
-  .thumb-preview(v-if='anexos.length > 0')
+  .thumb-preview(v-if='anexos.length > 0 && showThumbs')
     .thumb-preview-item(v-for='anexo in anexos')
       .progress-spin(:style="progressSpinStyle(anexo)") &#9676;
       .progress(:style="itemProgressStyle(anexo)")
@@ -24,7 +24,8 @@ import FileUpload from './FileUpload.js'
 export default {
   props: {
     url: { type: String, required: true},
-    thumbUrl: { type: Function, required: true },
+    showThumbs: { type: Boolean, default: true },
+    thumbUrl: { type: Function, default: () => {} },
     accept: { type: String, default: '.png,.jpg'},
     multiple: { type: Boolean, default: true },
     headers: { type: Object, default: () => {return {}} },

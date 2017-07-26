@@ -82,12 +82,13 @@ export default {
 | Name                    | Type      | Required | Default                                      | Info                                                           |
 |---                      |---        |---       |---                                           |---                                                             |
 | **url**                 | String    | True     |                                              | Url to POST the files                                          |
+| **show-thumb**          | Boolean   | False    | true                                         | Show thumbs for uploaded files                                 |
 | **thumb-url**           | Function  | True     |                                              | Method that should returns the thumb url for the uploaded file |
 | **multiple**            | Boolean   | False    | true                                         | Permit select multiple files if true                           |
 | **accept**              | String    | False    | .png,.jpg                                    | File input accept filter                                       |
 | **headers**             | Object    | False    | {}                                           | Headers for the request. You can pass auth tokens for example  |
 | **btn-label**           | String    | False    | Select a file                                | Label for the button                                           |
-| **btnErrorLabel**       | String    | False    | Erro ao enviar arquivos, tentar novamente?   | Label for error                                                |
+| **btn-error-label**     | String    | False    | Erro ao enviar arquivos, tentar novamente?   | Label for error                                                |
 | **btn-uploading-label** | String    | False    | Uploading files                              | Label for the button when the upload is in progress            |
 
 #### Events
