@@ -47,7 +47,7 @@ import { FileUploadService } from 'v-file-upload'
 
 ```html
 <template>
-  <file-upload :url='url' :multiple='false' :thumb-url='thumbUrl' :headers="headers" @change="onFilesChange"></file-upload>
+  <file-upload :url='url' :thumb-url='thumbUrl' :headers="headers" @change="onFileChange"></file-upload>
 </template>
 
 <script>
@@ -68,9 +68,9 @@ export default {
     thumbUrl (file) {
       return file.myThumbUrlProperty
     },
-    onFilesChange (files) {
+    onFileChange (file) {
       // Handle files like:
-      this.filesUploaded = files
+      this.fileUploaded = file
     }
   }
 }
@@ -82,13 +82,10 @@ export default {
 | Name                    | Type      | Required | Default                                      | Info                                                           |
 |---                      |---        |---       |---                                           |---                                                             |
 | **url**                 | String    | True     |                                              | Url to POST the files                                          |
-| **show-thumb**          | Boolean   | False    | true                                         | Show thumbs for uploaded files                                 |
 | **thumb-url**           | Function  | True     |                                              | Method that should returns the thumb url for the uploaded file |
-| **multiple**            | Boolean   | False    | true                                         | Permit select multiple files if true                           |
 | **accept**              | String    | False    | .png,.jpg                                    | File input accept filter                                       |
 | **headers**             | Object    | False    | {}                                           | Headers for the request. You can pass auth tokens for example  |
 | **btn-label**           | String    | False    | Select a file                                | Label for the button                                           |
-| **btn-error-label**     | String    | False    | Erro ao enviar arquivos, tentar novamente?   | Label for error                                                |
 | **btn-uploading-label** | String    | False    | Uploading files                              | Label for the button when the upload is in progress            |
 
 #### Events
@@ -99,7 +96,6 @@ export default {
 | **error**               | *event*: XMLHttpRequest event     | Triggered after POST error                                                                                                         |
 | **change**              | *files*: Array of uploaded files  | Triggered after add or remove a file                                                                                               |
 | **progress**            | *progress*: Progress percentage   | Triggered while the upload is in progress indicating the upload percentage                                                         |
-| **ready-state-change**  | *event*: XMLHttpRequest event     | Triggered after each XMLHttpRequest state change [See](https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/readyState) |
 
 
 ### As service
@@ -114,9 +110,9 @@ export default {
     }
   },
   methods: {
-    mySaveMethod (files) {
+    mySaveMethod (file) {
       let fileUpload = new FileUploadService(this.url, this.headers, this.onProgress)
-      fileUpload.uploadFiles(files).then((e) => {
+      fileUpload.upload(file).then((e) => {
         // Handle success
       }).catch((e) => {
         // Handle error
@@ -124,9 +120,6 @@ export default {
     },
     onProgress (event) {
       // Handdle the progress
-    },
-    onReadyStateChange (event) {
-      // Handdle the state change
     }
   }
 }
