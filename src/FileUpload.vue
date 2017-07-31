@@ -1,17 +1,10 @@
 <template lang="pug">
 .file-upload
-  .thumb-preview(v-if='anexos.length > 0 && showThumbs')
-    .thumb-preview-item(v-for='anexo in anexos')
-      .progress-spin(:style="progressSpinStyle(anexo)") &#9676;
-      .progress(:style="itemProgressStyle(anexo)")
-      label.red(@click='removeAnexo(anexo)', v-if="anexo.status == 'success'") &times;
+  .thumb-preview(v-if='thumbUrl(anexo)')
+    .thumb-preview-item
       img(:src='thumbUrl(anexo)')
-  .input-wrapper(v-if="status == 'error'", style="background-color: #d9534f;")
-    label.file-upload-label(@click="upload(anexos)")
-      span.file-upload-icon &times;
-      div {{ btnErrorLabel }}
-  .input-wrapper(:style='inputWrapperStyle', v-else)
-    input#file-upload-input(type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='multiple', :disabled='uploading')
+  .input-wrapper(:style='inputWrapperStyle')
+    input#file-upload-input(type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='false', :disabled='uploading')
     label.file-upload-label(for='file-upload-input')
       span.file-upload-icon(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
@@ -24,20 +17,16 @@ import FileUpload from './FileUpload.js'
 export default {
   props: {
     url: { type: String, required: true},
-    showThumbs: { type: Boolean, default: true },
     thumbUrl: { type: Function, default: () => {} },
     accept: { type: String, default: '.png,.jpg'},
-    multiple: { type: Boolean, default: true },
     headers: { type: Object, default: () => {return {}} },
     btnLabel: { type: String, default: 'Select a file'},
-    btnErrorLabel: { type: String, default: 'Erro ao enviar arquivos, tentar novamente?'},
-    btnUploadingLabel: { type: String, default: 'Uploading files'}
+    btnUploadingLabel: { type: String, default: 'Uploading file'}
   },
   data() {
     return {
       progress: 0,
-      status: 'waiting',
-      anexos: []
+      anexo: {}
     }
   },
   computed: {
@@ -58,56 +47,32 @@ export default {
     onChangeInputFile (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
-      this.upload(files)
+      this.upload(files[0])
     },
 
-    upload(files) {
+    upload(file) {
       this.progress = .1
-      this.status = 'loading'
       let fileUpload = new FileUpload(this.url, this.headers, this.onProgress)
-      fileUpload.uploadFiles(files).then((e) => {
-        this.onChangeAnexos()
+      fileUpload.upload(file).then((e) => {
+        this.anexo = e.target.response
+        this.onChangeAnexo()
         this.$emit('success', e)
-        this.status = 'success'
         this.progress = 0
       }).catch((e) => {
-        this.status = 'error'
         this.$emit('error', e)
         this.progress = 0
       })
     },
 
     onProgress (e) {
-      this.progress = e.progress
+      this.progress = parseInt(e.loaded * 100 / e.total)
+      console.log(e.total, e.loaded, this.progress)
       this.$emit('progress', this.progress)
-      this.anexos.splice(0, this.anexos.length)
-      e.files.forEach(p => this.anexos.push(p))
     },
 
-    itemProgressStyle (item) {
-      return {
-        width: `${item.progress || 0}%`,
-        display: item.status == 'loading' ? 'block' : 'none'
-      }
-    },
-
-    progressSpinStyle (item) {
-      return {
-        display: ['waiting', 'loading'].indexOf(item.status) > -1 ? 'block' : 'none'
-      }
-    },
-
-    removeAnexo: function (anexo) {
-      this.anexos.splice(this.anexos.indexOf(anexo), 1)
-      this.onChangeAnexos()
-    },
-
-    onChangeAnexos () {
-      this.$emit('change', this.anexos)
+    onChangeAnexo () {
+      this.$emit('change', this.anexo)
     }
-  },
-  created () {
-    window.c = this
   }
 }
 </script>
@@ -168,41 +133,8 @@ export default {
       width 150px
       padding 0
       position relative
-      .progress
-        position absolute
-        background-color #47B04B
-        height 100%
-        max-width 100%
-        z-index 1
-        opacity .8
-        transition width .6s ease
-        border-radius 5px
-      .progress-spin
-        position absolute
-        height 100%
-        width 100%
-        text-align center
-        font-size 90px
-        animation rotating 3s linear infinite
-        color #fff
-        z-index 2
-      .red
-        color red
       img
         border-radius 5px
-      label
-        position absolute
-        padding 0 8px 5px 8px
-        border-radius 50px
-        font-weight bolder
-        font-size 30px
-        line-height 1em
-        left 8px
-        top 8px
-        background-color rgba(255, 255, 255, 0.6)
-        &:hover
-          background-color #FFFFFF
-          cursor pointer
 
 @-webkit-keyframes fade
   from
@@ -215,15 +147,4 @@ export default {
     opacity 1
   to
     opacity 0
-
-@-webkit-keyframes rotating
-  from
-    -webkit-transform rotate(0deg)
-  to
-    -webkit-transform rotate(360deg)
-@keyframes rotating
-  from
-    -webkit-transform rotate(0deg)
-  to
-    -webkit-transform rotate(360deg)
 </style>
