@@ -66,7 +66,6 @@ export default {
 
     onProgress (e) {
       this.progress = parseInt(e.loaded * 100 / e.total)
-      console.log(e.total, e.loaded, this.progress)
       this.$emit('progress', this.progress)
     },
 
