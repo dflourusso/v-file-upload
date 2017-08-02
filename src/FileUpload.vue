@@ -58,10 +58,19 @@ export default {
         this.onChangeAnexo()
         this.$emit('success', e)
         this.progress = 0
+        this.cleanInput()
       }).catch((e) => {
         this.$emit('error', e)
         this.progress = 0
+        this.cleanInput()
       })
+    },
+
+    cleanInput () {
+      let input = window.document.getElementById('file-upload-input')
+      if (input) {
+        input.value = ''
+      }
     },
 
     onProgress (e) {
