@@ -1,7 +1,8 @@
 <template lang="pug">
 div(style="text-align: center;")
   div.input-group
-    file-upload(url='https://posttestserver.com/post.php?dump', :thumb-url='thumbUrl', @success="onSucess")
+    file-upload(url='https://posttestserver.com/post.php?dump', :thumb-url='thumbUrl', @success="onSucess", @error="onError")
+    .red {{error}}
 </template>
 
 <script>
@@ -14,7 +15,8 @@ export default {
   name: 'demo',
   data () {
     return {
-      success: false
+      success: false,
+      error: ''
     }
   },
   methods: {
@@ -22,7 +24,11 @@ export default {
       return (file && file.id) || this.success ? 'http://vuejs.org/images/logo.png' : ''
     },
     onSucess () {
+      this.error = ''
       this.success = true
+    },
+    onError (e) {
+      this.error = e
     }
   }
 }
@@ -30,5 +36,6 @@ export default {
 
 <style src="./style.css"></style>
 <style lang="stylus">
-
+.red
+  color red
 </style>

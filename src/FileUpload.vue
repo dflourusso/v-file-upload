@@ -21,7 +21,8 @@ export default {
     accept: { type: String, default: '.png,.jpg'},
     headers: { type: Object, default: () => {return {}} },
     btnLabel: { type: String, default: 'Select a file'},
-    btnUploadingLabel: { type: String, default: 'Uploading file'}
+    btnUploadingLabel: { type: String, default: 'Uploading file'},
+    maxSize: {type: Number, default: 15360} // 15Mb
   },
   data() {
     return {
@@ -47,7 +48,13 @@ export default {
     onChangeInputFile (e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
-      this.upload(files[0])
+      const file = files[0]
+      if (file.size > this.maxSize) {
+        this.$emit('error', {code: 'max_size_exceded', message: `File max size exceded, upload a file smaller than ${this.maxSize}`})
+        return
+      }
+
+      this.upload(file)
     },
 
     upload(file) {

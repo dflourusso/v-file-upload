@@ -87,6 +87,7 @@ export default {
 | **headers**             | Object    | False    | {}                                           | Headers for the request. You can pass auth tokens for example  |
 | **btn-label**           | String    | False    | Select a file                                | Label for the button                                           |
 | **btn-uploading-label** | String    | False    | Uploading files                              | Label for the button when the upload is in progress            |
+| **max-size**            | Number    | False    | 15360 //15Mb                                 | Max size for the file                                          |
 
 #### Events
 
