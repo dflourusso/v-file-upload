@@ -1,7 +1,7 @@
 <template lang="pug">
 div(style="text-align: center;")
   div.input-group
-    file-upload(url='https://posttestserver.com/post.php?dump', :thumb-url='thumbUrl', @success="onSucess", @error="onError")
+    file-upload(url='https://posttestserver.com/post.php?dump', :thumb-url='thumbUrl', @success="onSucess", @error="onError", :additional-data="additionalData")
     .red {{error}}
 </template>
 
@@ -13,21 +13,26 @@ Vue.component('file-upload', FileUpload)
 
 export default {
   name: 'demo',
-  data () {
+  data() {
     return {
       success: false,
-      error: ''
+      error: '',
+      additionalData: {
+        doc_id: 1
+      }
     }
   },
   methods: {
-    thumbUrl (file) {
-      return (file && file.id) || this.success ? 'http://vuejs.org/images/logo.png' : ''
+    thumbUrl(file) {
+      return (file && file.id) || this.success
+        ? 'http://vuejs.org/images/logo.png'
+        : ''
     },
-    onSucess () {
+    onSucess() {
       this.error = ''
       this.success = true
     },
-    onError (e) {
+    onError(e) {
       this.error = e
     }
   }
@@ -36,6 +41,7 @@ export default {
 
 <style src="./style.css"></style>
 <style lang="stylus">
-.red
-  color red
+.red {
+  color: red;
+}
 </style>
