@@ -5,7 +5,7 @@ class FileUpload {
     this.onProgress = onProgress
   }
 
-  upload(file) {
+  upload(file, additionalData = {}) {
     let xhr = new XMLHttpRequest()
     xhr.responseType = 'json'
 
@@ -24,6 +24,9 @@ class FileUpload {
     // Start upload
     let formData = new FormData()
     formData.append('file', file)
+    Object.keys(additionalData).forEach(p => {
+      formData.append(p, additionalData[p])
+    })
     xhr.send(formData)
 
     return promise
