@@ -1,5 +1,5 @@
 class FileUpload {
-  constructor(url, headers = {}, onProgress = ()=>{}) {
+  constructor(url, headers = {}, onProgress = () => {}) {
     this.url = url
     this.headers = headers
     this.onProgress = onProgress
@@ -16,7 +16,8 @@ class FileUpload {
     // Events
     xhr.upload.addEventListener('progress', this.onProgress, false)
     let promise = new Promise((resolve, reject) => {
-      xhr.onload = e => xhr.status >= 200 && xhr.status < 400 ? resolve(e) : reject(e)
+      xhr.onload = e =>
+        xhr.status >= 200 && xhr.status < 400 ? resolve(e) : reject(e)
       xhr.onerror = e => reject(e)
     })
 
@@ -29,7 +30,9 @@ class FileUpload {
   }
 
   _setXhrHeaders(xhr) {
-    Object.keys(this.headers).forEach(p => xhr.setRequestHeader(p, this.headers[p]))
+    Object.keys(this.headers).forEach(p =>
+      xhr.setRequestHeader(p, this.headers[p])
+    )
   }
 }
 
