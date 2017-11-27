@@ -16,13 +16,24 @@ import FileUpload from './FileUpload.js'
 
 export default {
   props: {
-    url: { type: String, required: true},
+    url: { type: String, required: true },
     thumbUrl: { type: Function, default: () => {} },
-    accept: { type: String, default: '.png,.jpg'},
-    headers: { type: Object, default: () => {return {}} },
-    btnLabel: { type: String, default: 'Select a file'},
-    btnUploadingLabel: { type: String, default: 'Uploading file'},
-    maxSize: {type: Number, default: 15360} // 15Mb
+    accept: { type: String, default: '.png,.jpg' },
+    headers: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+    btnLabel: { type: String, default: 'Select a file' },
+    btnUploadingLabel: { type: String, default: 'Uploading file' },
+    maxSize: { type: Number, default: 15360 }, // 15Mb
+    additionalData: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
   },
   data() {
     return {
@@ -31,26 +42,30 @@ export default {
     }
   },
   computed: {
-    uploading () {
+    uploading() {
       return this.progress > 0
     },
-    progressStyle () {
+    progressStyle() {
       return {
         width: `${this.progress}%`,
         display: this.uploading ? 'block' : 'none'
       }
     },
-    inputWrapperStyle () {
+    inputWrapperStyle() {
       return { opacity: this.uploading ? '0.7' : '1' }
     }
   },
   methods: {
-    onChangeInputFile (e) {
+    onChangeInputFile(e) {
       let files = e.target.files || e.dataTransfer.files
       if (!files.length) return
       const file = files[0]
       if (file.size > this.maxSize) {
-        this.$emit('error', {code: 'max_size_exceded', message: `File max size exceded, upload a file smaller than ${this.maxSize}`})
+        this.$emit('error', {
+          code: 'max_size_exceded',
+          message: `File max size exceded, upload a file smaller than ${this
+            .maxSize}`
+        })
         return
       }
 
@@ -58,34 +73,37 @@ export default {
     },
 
     upload(file) {
-      this.progress = .1
+      this.progress = 0.1
       let fileUpload = new FileUpload(this.url, this.headers, this.onProgress)
-      fileUpload.upload(file).then((e) => {
-        this.anexo = e.target.response
-        this.onChangeAnexo()
-        this.$emit('success', e)
-        this.progress = 0
-        this.cleanInput()
-      }).catch((e) => {
-        this.$emit('error', e)
-        this.progress = 0
-        this.cleanInput()
-      })
+      fileUpload
+        .upload(file, this.additionalData)
+        .then(e => {
+          this.anexo = e.target.response
+          this.onChangeAnexo()
+          this.$emit('success', e)
+          this.progress = 0
+          this.cleanInput()
+        })
+        .catch(e => {
+          this.$emit('error', e)
+          this.progress = 0
+          this.cleanInput()
+        })
     },
 
-    cleanInput () {
+    cleanInput() {
       let input = window.document.getElementById('file-upload-input')
       if (input) {
         input.value = ''
       }
     },
 
-    onProgress (e) {
+    onProgress(e) {
       this.progress = parseInt(e.loaded * 100 / e.total)
       this.$emit('progress', this.progress)
     },
 
-    onChangeAnexo () {
+    onChangeAnexo() {
       this.$emit('change', this.anexo)
     }
   }
@@ -93,73 +111,101 @@ export default {
 </script>
 
 <style lang="stylus">
-.file-upload
-  .input-wrapper
-    text-align center
-    position relative
-    background-color #307DBF
-    height 80px
-    &:hover
-      background-color #2C70AC
-    #file-upload-input
-      width 0.1px
-      height 0.1px
-      opacity 0
-      overflow hidden
-      position absolute
-      z-index -1
-    .file-upload-label
-      width 100%
-      font-size 1.25em
-      color white
-      display inline-block
-      padding 10px
-      position absolute
-      left 0
-      right 0
-      z-index 2
-      line-height 1.4em
-      &:hover
-        cursor pointer
-      .file-upload-icon
-        display inline-block
-        text-align center
-        font-weight bold
-        font-size 40px
-        &.file-upload-icon-pulse
-          animation fade 1.5s infinite .5s
-    .file-upload-progress
-      position absolute
-      background-color #47B04B
-      height 100%
-      max-width 100%
-      z-index 1
-      transition width .6s ease
+.file-upload {
+  .input-wrapper {
+    text-align: center;
+    position: relative;
+    background-color: #307DBF;
+    height: 80px;
 
+    &:hover {
+      background-color: #2C70AC;
+    }
 
-  .thumb-preview
-    display flex
-    flex-flow row wrap
-    .thumb-preview-item
-      border-radius 5px
-      margin 5px
-      background-color #cccccc
-      height 150px
-      width 150px
-      padding 0
-      position relative
-      img
-        border-radius 5px
+    #file-upload-input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
 
-@-webkit-keyframes fade
-  from
-    opacity 1
-  to
-    opacity 0
+    .file-upload-label {
+      width: 100%;
+      font-size: 1.25em;
+      color: white;
+      display: inline-block;
+      padding: 10px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      line-height: 1.4em;
 
-@keyframes fade
-  from
-    opacity 1
-  to
-    opacity 0
+      &:hover {
+        cursor: pointer;
+      }
+
+      .file-upload-icon {
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+        font-size: 40px;
+
+        &.file-upload-icon-pulse {
+          animation: fade 1.5s infinite 0.5s;
+        }
+      }
+    }
+
+    .file-upload-progress {
+      position: absolute;
+      background-color: #47B04B;
+      height: 100%;
+      max-width: 100%;
+      z-index: 1;
+      transition: width 0.6s ease;
+    }
+  }
+
+  .thumb-preview {
+    display: flex;
+    flex-flow: row wrap;
+
+    .thumb-preview-item {
+      border-radius: 5px;
+      margin: 5px;
+      background-color: #cccccc;
+      height: 150px;
+      width: 150px;
+      padding: 0;
+      position: relative;
+
+      img {
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
 </style>
