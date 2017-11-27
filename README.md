@@ -79,47 +79,54 @@ export default {
 
 #### Properties
 
-| Name                    | Type      | Required | Default                                      | Info                                                           |
-|---                      |---        |---       |---                                           |---                                                             |
-| **url**                 | String    | True     |                                              | Url to POST the files                                          |
-| **thumb-url**           | Function  | True     |                                              | Method that should returns the thumb url for the uploaded file |
-| **accept**              | String    | False    | .png,.jpg                                    | File input accept filter                                       |
-| **headers**             | Object    | False    | {}                                           | Headers for the request. You can pass auth tokens for example  |
-| **btn-label**           | String    | False    | Select a file                                | Label for the button                                           |
-| **btn-uploading-label** | String    | False    | Uploading files                              | Label for the button when the upload is in progress            |
-| **max-size**            | Number    | False    | 15360 //15Mb                                 | Max size for the file                                          |
+| Name                    | Type     | Required | Default         | Info                                                           |
+| ----------------------- | -------- | -------- | --------------- | -------------------------------------------------------------- |
+| **url**                 | String   | True     |                 | Url to POST the files                                          |
+| **thumb-url**           | Function | True     |                 | Method that should returns the thumb url for the uploaded file |
+| **accept**              | String   | False    | .png,.jpg       | File input accept filter                                       |
+| **headers**             | Object   | False    | {}              | Headers for the request. You can pass auth tokens for example  |
+| **btn-label**           | String   | False    | Select a file   | Label for the button                                           |
+| **btn-uploading-label** | String   | False    | Uploading files | Label for the button when the upload is in progress            |
+| **max-size**            | Number   | False    | 15360 //15Mb    | Max size for the file                                          |
+| **additional-data**     | Object   | False    | {}              | Additional data for the request                                |
 
 #### Events
 
-| Name                    | Params                            | Info                                                                                                                               |
-|---                      |---                                |---                                                                                                                                 |
-| **success**             | *event*: XMLHttpRequest event     | Triggered after POST success                                                                                                       |
-| **error**               | *event*: XMLHttpRequest event     | Triggered after POST error                                                                                                         |
-| **change**              | *files*: Array of uploaded files  | Triggered after add or remove a file                                                                                               |
-| **progress**            | *progress*: Progress percentage   | Triggered while the upload is in progress indicating the upload percentage                                                         |
-
+| Name         | Params                           | Info                                                                       |
+| ------------ | -------------------------------- | -------------------------------------------------------------------------- |
+| **success**  | _event_: XMLHttpRequest event    | Triggered after POST success                                               |
+| **error**    | _event_: XMLHttpRequest event    | Triggered after POST error                                                 |
+| **change**   | _files_: Array of uploaded files | Triggered after add or remove a file                                       |
+| **progress** | _progress_: Progress percentage  | Triggered while the upload is in progress indicating the upload percentage |
 
 ### As service
 
 ```js
 import { FileUploadService } from 'v-file-upload'
 export default {
-  data () {
+  data() {
     return {
       url: 'http://your-post.url',
-      headers: {'access-token': '<your-token>'}
+      headers: { 'access-token': '<your-token>' }
     }
   },
   methods: {
-    mySaveMethod (file) {
-      let fileUpload = new FileUploadService(this.url, this.headers, this.onProgress)
-      fileUpload.upload(file).then((e) => {
-        // Handle success
-      }).catch((e) => {
-        // Handle error
-      })
+    mySaveMethod(file) {
+      let fileUpload = new FileUploadService(
+        this.url,
+        this.headers,
+        this.onProgress
+      )
+      fileUpload
+        .upload(file, { doc_id: 1 })
+        .then(e => {
+          // Handle success
+        })
+        .catch(e => {
+          // Handle error
+        })
     },
-    onProgress (event) {
+    onProgress(event) {
       // Handdle the progress
     }
   }
@@ -128,8 +135,9 @@ export default {
 
 ## Author
 
--	[Daniel Fernando Lourusso](http://dflourusso.com.br)
+* [Daniel Fernando Lourusso](http://dflourusso.com.br)
 
 ## License
 
-This project is licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+This project is licensed under
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
