@@ -37,5 +37,8 @@
   "bugs": {
     "url": "https://github.com/dflourusso/v-file-upload/issues"
   },
-  "homepage": "https://github.com/dflourusso/v-file-upload#readme"
+  "homepage": "https://github.com/dflourusso/v-file-upload#readme",
+  "devDependencies": {
+    "vue-template-compiler": "2.4.2"
+  }
 }
