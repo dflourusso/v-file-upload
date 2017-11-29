@@ -1,8 +1,10 @@
 // need to use require instead of import (changes from babel 5 to 6)
-const FileUpload = require('./FileUpload.vue')
-const FileUploadService = require('./FileUpload.js')
+import FileUpload from './FileUpload.vue'
+import FileUploadService from './FileUpload.js'
 
-FileUpload.install = vue => vue.component('file-upload', FileUpload)
-FileUpload.version = proccess.env.VERSION
+export { FileUploadService }
 
-module.exports = { FileUpload, FileUploadService }
+export default {
+  ...FileUpload,
+  install: vue => vue.component('file-upload', FileUpload)
+}
