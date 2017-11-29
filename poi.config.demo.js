@@ -4,5 +4,8 @@ module.exports = (options, req) => ({
   format: 'cjs',
   removeDist: true,
   dist: 'docs',
-  homepage: '/v-file-upload/'
+  homepage: '/v-file-upload/',
+  html: {
+    template: './demo/index.html'
+  }
 })
