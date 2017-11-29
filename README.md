@@ -29,8 +29,7 @@
 ```js
 import Vue from 'vue'
 
-import { FileUpload } from 'v-file-upload'
-import 'v-file-upload/dist/v-file-upload.css'
+import FileUpload from 'v-file-upload'
 
 Vue.use(FileUpload)
 ```
