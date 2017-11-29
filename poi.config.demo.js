@@ -3,5 +3,6 @@ module.exports = (options, req) => ({
   sourceMap: false,
   format: 'cjs',
   removeDist: true,
-  dist: 'docs'
+  dist: 'docs',
+  homepage: '/v-file-upload/'
 })
