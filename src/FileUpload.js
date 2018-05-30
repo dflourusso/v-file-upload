@@ -1,8 +1,9 @@
 class FileUpload {
-  constructor(url, headers = {}, onProgress = () => {}) {
+  constructor(url, headers = {}, onProgress = () => {}, type = 'POST') {
     this.url = url
     this.headers = headers
     this.onProgress = onProgress
+    this.type = type
   }
 
   upload(file, additionalData = {}) {
@@ -10,7 +11,7 @@ class FileUpload {
     xhr.responseType = 'json'
 
     // Headers
-    xhr.open('POST', this.url, true)
+    xhr.open(this.type, this.url, true)
     this._setXhrHeaders(xhr)
 
     // Events

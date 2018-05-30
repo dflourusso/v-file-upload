@@ -33,7 +33,8 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    requestType: { type: String, default: 'POST' }
   },
   data() {
     return {
@@ -74,7 +75,7 @@ export default {
 
     upload(file) {
       this.progress = 0.1
-      let fileUpload = new FileUpload(this.url, this.headers, this.onProgress)
+      let fileUpload = new FileUpload(this.url, this.headers, this.onProgress, this.requestType)
       fileUpload
         .upload(file, this.additionalData)
         .then(e => {
