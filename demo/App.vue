@@ -1,7 +1,7 @@
 <template lang="pug">
 div(style="text-align: center;")
   div.input-group
-    file-upload(url='https://posttestserver.com/post.php?dump', :thumb-url='thumbUrl', @success="onSucess", @error="onError", :additional-data="additionalData")
+    file-upload(url='https://postman-echo.com/post', :thumb-url='thumbUrl', @success="onSucess", @error="onError", :additional-data="additionalData")
     .red {{error}}
 </template>
 
