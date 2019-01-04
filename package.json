@@ -3,6 +3,7 @@
   "version": "3.1.5",
   "description": "File input component for Vue.js",
   "author": "Daniel Fernando Lourusso <daniel@dflourusso.com.br>",
+  "typings": "types/index.d.ts",
   "main": "dist/v-file-upload.js",
   "license": "MIT",
   "scripts": {
