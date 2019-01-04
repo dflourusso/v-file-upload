@@ -131,6 +131,10 @@ export default {
 }
 ```
 
+## Development
+
+`yarn dist`
+
 ## Author
 
 * [Daniel Fernando Lourusso](http://dflourusso.com.br)
