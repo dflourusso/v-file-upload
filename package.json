@@ -12,7 +12,8 @@
     "start": "poi ./demo/index.js"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "types/"
   ],
   "keywords": [
     "vue",
