@@ -1,6 +1,6 @@
 {
   "name": "v-file-upload",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "File input component for Vue.js",
   "author": "Daniel Fernando Lourusso <daniel@dflourusso.com.br>",
   "main": "dist/v-file-upload.js",
