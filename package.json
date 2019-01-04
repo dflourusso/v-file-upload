@@ -13,7 +13,7 @@
   },
   "files": [
     "dist/",
-    "types"
+    "types/"
   ],
   "keywords": [
     "vue",
