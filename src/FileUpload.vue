@@ -4,8 +4,8 @@
     .thumb-preview-item
       img(:src='thumbUrl(anexo)')
   .input-wrapper(:style='inputWrapperStyle')
-    input#file-upload-input(type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='false', :disabled='uploading', ref='input')
-    label.file-upload-label(for='file-upload-input')
+    input.file-upload-input(:id='fileUploadInputName' type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='false', :disabled='uploading', ref='input')
+    label.file-upload-label(:for='fileUploadInputName')
       span.file-upload-icon(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
     div.file-upload-progress(:style='progressStyle')
@@ -34,7 +34,8 @@ export default {
         return {}
       }
     },
-    requestType: { type: String, default: 'POST' }
+    requestType: { type: String, default: 'POST' },
+    uniqueId: { type: String, default: '000' }
   },
   data() {
     return {
@@ -54,6 +55,9 @@ export default {
     },
     inputWrapperStyle() {
       return { opacity: this.uploading ? '0.7' : '1' }
+    },
+    fileUploadInputName() {
+      return 'file-upload-input' + this.uniqueId
     }
   },
   methods: {
@@ -123,7 +127,7 @@ export default {
       background-color: #2C70AC;
     }
 
-    #file-upload-input {
+    .file-upload-input {
       width: 0.1px;
       height: 0.1px;
       opacity: 0;
