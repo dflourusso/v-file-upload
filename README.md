@@ -77,16 +77,17 @@ export default {
 
 #### Properties
 
-| Name                    | Type     | Required | Default         | Info                                                           |
-| ----------------------- | -------- | -------- | --------------- | -------------------------------------------------------------- |
-| **url**                 | String   | True     |                 | Url to POST the files                                          |
-| **thumb-url**           | Function | True     |                 | Method that should returns the thumb url for the uploaded file |
-| **accept**              | String   | False    | .png,.jpg       | File input accept filter                                       |
-| **headers**             | Object   | False    | {}              | Headers for the request. You can pass auth tokens for example  |
-| **btn-label**           | String   | False    | Select a file   | Label for the button                                           |
-| **btn-uploading-label** | String   | False    | Uploading files | Label for the button when the upload is in progress            |
-| **max-size**            | Number   | False    | 15728640 //15Mb | Max size for the file                                          |
-| **additional-data**     | Object   | False    | {}              | Additional data for the request                                |
+| Name                    | Type     | Required | Default         | Info                                                                        |
+| ----------------------- | -------- | -------- | --------------- | --------------------------------------------------------------------------- |
+| **url**                 | String   | True     |                 | Url to POST the files                                                       |
+| **thumb-url**           | Function | True     |                 | Method that should returns the thumb url for the uploaded file              |
+| **accept**              | String   | False    | .png,.jpg       | File input accept filter                                                    |
+| **headers**             | Object   | False    | {}              | Headers for the request. You can pass auth tokens for example               |
+| **btn-label**           | String   | False    | Select a file   | Label for the button                                                        |
+| **btn-uploading-label** | String   | False    | Uploading files | Label for the button when the upload is in progress                         |
+| **max-size**            | Number   | False    | 15728640 //15Mb | Max size for the file                                                       |
+| **additional-data**     | Object   | False    | {}              | Additional data for the request                                             |
+| **unique-id**           | String   | False    | '000'           | Helpful when using more than one instance of the component on the same page |
 
 #### Events
 
